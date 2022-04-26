@@ -29,7 +29,7 @@ Incomplete
 * C1 to C6 - Memory Address Register and Memory Work Register
 * C7 74LS02 - NOR gate
 * C8 74LS04 - Inverter
-* C9 74LS377 - Octal D Flip Flop for high bits of address bus (Data Register for page table and register file?)
+* C9 74LS377 - Octal D Flip Flop Data Register for page table and register file?
 * C10 74LS04 - Inverter
 * C11 74LS173 - Quad D Flip Flop tristate outputs - instruction decoding?
 * C12 74LS173 - Quad D Flip Flop tristate outputs - instruction decoding?
@@ -44,7 +44,7 @@ Incomplete
 * D6 74LS157 - Quad 2 to 1 multiplexer for MAR/MWR clock/inc/dec control
 * D7 74120 - Clock Synchonizer CPU clock control?
 * D8 74LS20 - 4 input NAND gate
-* D9 74LS378 - Hex D Flip Flop - some machine register?
+* D9 74LS378 - Hex D Flip Flop - some machine register? Possibly page index for address bus
 * D10 74LS02 - NOR gate
 * D11 74LS378 - Hex D Flip Flop - Page Table Base Register
 * D12 74LS00 - NAND gate
