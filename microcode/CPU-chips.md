@@ -79,7 +79,7 @@ Incomplete
 * J12 74LS153 - Dual 4 to 1 multiplexer sequencer conditional control?
 * J13 74LS153 - Dual 4 to 1 multiplexer sequencer conditional control?
 * K6 74LS00 - NAND gate - sequencer glue logic
-* K9 74S151 - Dual 4 to 1 multiplexer (fast) sequencer conditional control?
+* K9 74S151 - 8 to 1 multiplexer (fast) sequencer conditional control?
 * K10 74LS00 - NAND gate
 * K11 74LS138 - 1 of 8 decoder controlling reads from the bus/sequencer conditional?
 * K12 74LS02 - NOR gate
