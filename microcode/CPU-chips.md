@@ -9,7 +9,7 @@ Incomplete
 * A5 DS8835 - Bus transceiver for address bus
 * A6 DS8835 - Bus transceiver for address bus
 * A7 74LS240 - Bus transceiver for PC (highest nibble) combines with A6 / signals from front panel (?) combines with half of dip switches M7
-* A8 DS8835 - Bus transceiver for address bus
+* A8 DS8835 - Bus transceiver for interrupt level (?)
 * A9 DS8835 - Bus transceiver for address bus
 * A10 DS8835 - Bus transceiver for address bus
 * A11 AM2907 - Bus transceiver for data bus
@@ -24,29 +24,29 @@ Incomplete
 * B10 93L422 - 4 bit memory Page Table
 * B11 74LS10 - 3 input NAND gate
 * B12 74LS00 - NAND gate
-* B13 6309 - 8 bit PROM - instruction decoding?
+* B13 6309 - 8 bit PROM - instruction decoding
 * B15 74LS74 - Dual D Flip Flop Bus timing/control?
 * C1 to C6 - Memory Address Register and Memory Work Register
 * C7 74LS02 - NOR gate
 * C8 74LS04 - Inverter
-* C9 74LS377 - Octal D Flip Flop Data Register for page table and register file?
+* C9 74LS377 - Octal D Flip Flop Data Register for page table and register file, address register
 * C10 74LS04 - Inverter
-* C11 74LS173 - Quad D Flip Flop tristate outputs - instruction decoding?
-* C12 74LS173 - Quad D Flip Flop tristate outputs - instruction decoding?
+* C11 74LS173 - Quad D Flip Flop tristate outputs - instruction decoding (nibble swap)
+* C12 74LS173 - Quad D Flip Flop tristate outputs - instruction decoding (nibble swap)
 * C13 74LS377 - Octal D Flip Flop for Register Index Register
-* C14 74LS157 - Quad 2 to 1 multiplexer for interrupt level selection?
-* C15 74LS669 - 4 bit counter for interrupt level register?
+* C14 74LS157 - Quad 2 to 1 multiplexer for context level selection?
+* C15 74LS669 - 4 bit counter for context level register?
 * D1 socket for sequencer address injection/monitoring
-* D2 74LS139 - 1 of 4 decoder used for internal bus transmitters? (only half used)
-* D3 74LS138 - 1 of 8 decoder used for internal bus transmitters?
+* D2 74S139 - 1 of 4 decoder used for internal bus tristates (only half used)
+* D3 74S138 - 1 of 8 decoder used for internal bus tristates
 * D4 74LS174 - Hex D Flip Flop D2/D3 latching
 * D5 74LS174 - Hex D Flip Flop D2/D3 latching
 * D6 74LS157 - Quad 2 to 1 multiplexer for MAR/MWR clock/inc/dec control
-* D7 74120 - Clock Synchonizer CPU clock control?
+* D7 74120 - Clock Synchonizer CPU bus clock?
 * D8 74LS20 - 4 input NAND gate
-* D9 74LS378 - Hex D Flip Flop - some machine register? Possibly page index for address bus
+* D9 74LS378 - Hex D Flip Flop - some machine register? Possibly interrupt level?
 * D10 74LS02 - NOR gate
-* D11 74LS378 - Hex D Flip Flop - Page Table Base Register
+* D11 74LS378 - Hex D Flip Flop - Page Table Base Register + ???
 * D12 74LS00 - NAND gate
 * D13 74LS374 - Octal D Flip Flop tristate outputs - Register Contents Register
 * D14 93L422 - 4 bit memory Registers
@@ -91,7 +91,7 @@ Incomplete
 * L9 AM2911 - 4 bit sequencer bits 8-11 (11 not used)
 * L10 74LS74 - Dual D Flip Flop - Clock halver and ??
 * L11 74LS157 - Quad 2 to 1 multiplexer selects between signals from P7 (L12) or L10 and others
-* L12 P7 socket for clock monitoring/injection, sequencer output control
+* L12 P7 socket for clock monitoring/injection, sequencer output control, ALU output control
 * L13 74LS109 - Dual JK Flip Flop
 * L14 74LS00 - NAND gate
 * M6 74LS240 - Octal transceiver inverting 3 state outputs - constant from microcode to bus
@@ -101,6 +101,6 @@ Incomplete
 * M10 7437 - Bus Driver - Clock driver and oscillator
 * M12 74LS378 - Hex D Flip Flop unknown machine register
 * M13 74LS259 - Addressable Latch - CPU state control?
-* M14 74LS240 - Octal transceiver inverting 3 state outputs - P3 I/O
+* M14 74LS240 - Octal transceiver inverting 3 state outputs - P3 I/O, condition code register read to bus
 * M15 74LS240 - Octal transceiver inverting 3 state outputs - P3 I/O
 * P5/P6 - microcode word monitoring/injection
