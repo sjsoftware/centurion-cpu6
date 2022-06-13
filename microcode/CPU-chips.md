@@ -8,7 +8,7 @@ Incomplete
 * A4 DS8835 - Bus transceiver for address bus
 * A5 DS8835 - Bus transceiver for address bus
 * A6 DS8835 - Bus transceiver for address bus
-* A7 74LS240 - Bus transceiver for PC (highest nibble) combines with A6 / signals from front panel (?) combines with half of dip switches M7
+* A7 74LS240 - Bus transceiver for PC (highest nibble) combines with A6 / inr combines with half of dip switches M7
 * A8 DS8835 - Bus transceiver for interrupt level (?)
 * A9 DS8835 - Bus transceiver for address bus
 * A10 DS8835 - Bus transceiver for address bus
@@ -76,9 +76,9 @@ Incomplete
 * J6 74LS04 - Inverter - various ALU/Sequencer glue
 * J7/8 AM2909 - 4 bit sequencer bits 4-7
 * J9 74LS378 - Hex D Flip Flop Status Register from ALU
-* J10 74LS151 - 8 to 1 multiplexer - sequencer conditional control?
-* J11 74LS151 - 8 to 1 multiplexer - sequencer conditional control?
-* J12 74LS153 - Dual 4 to 1 multiplexer sequencer conditional control?
+* J10 74LS151 - 8 to 1 multiplexer - Link Flag control
+* J11 74LS151 - 8 to 1 multiplexer - Fault Flag control
+* J12 74LS153 - Dual 4 to 1 multiplexer - V/M Flag control
 * J13 74LS153 - Dual 4 to 1 multiplexer sequencer conditional control?
 * K6 74LS00 - NAND gate - sequencer glue logic
 * K9 74S151 - 8 to 1 multiplexer (fast) sequencer conditional control?
