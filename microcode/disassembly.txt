@@ -116,39 +116,40 @@
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (444)
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       47e 7e (81)      e7.3     h11.5       k11.0       e6.0      READ.SWP  (445)
     0     CRY0 r00 r02 RAM  D                PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       e6.0      BUS.READ  (47e)
-    0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (47f) r1/r2 <- immediate
+    0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (47f) r1/r2 <- direct
 	
 	
 	
 	
 1d4 0     CRY0 r00 r00 RAM  NOT.D            DATA  DATA  PC         70e 0e (f1)      e7.0     h11.1       k11.0       e6.0      CONST     (1d4) r0 <- 0e (P?)
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (705) 
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (706)
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         636 36 (c9) JSR? e7.0     h11.1       k11.0       e6.0      READ.SWP  (707)
-    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA       71c 1c (e3)      e7.0     LOAD.NSWPR  k11.0       LOAD.RIR  BUS.READ  (708)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (705) (nop)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (706) (nop)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         636 36 (c9) JSR? e7.0     h11.1       k11.0       e6.0      READ.SWP  (707) (nop)
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA       71c 1c (e3)      e7.0     LOAD.NSWPR  k11.0       LOAD.RIR  BUS.READ  (708) swapper <- bus
     0     CRY0 r00 r09 RAM  D.AND.A          PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (71c) r9 <- high nibble (swapped)
     1 RLO CRY0 r00 r01 RAM  D                DATA  DATA  DATA       7d0 d0 (2f)      e7.0     LOAD.NSWPR  k11.0       e6.0      READ.SWP  (71d) r1 <- high nibble (swapped)
-    1     CRY0 r00 r02 RAM  D                PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.REG  (7d0) r2 <- reg low
-    0     CRY0 r01 r01 RAMA D                PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       LOAD.RIR  READ.REG  (7d1) rir <- r1; r1 <- reg high; 
-    0     CRY0 r00 r00 PASS D                PC    PC    PC         702 02 (fd) JSR? LOAD.FLR h11.0       k11.0       e6.0      BUS.READ  (7d2) high byte minus?
-    0     CRY0 r02 r02 RAM  D+A         CASE PC    PC    DATA       0ce ce (31)      LOAD.FLR h11.0       k11.0       e6.0      BUS.READ  (7d3) r2 += low byte; load flags
-    0     CRY  r01 r01 RAM  A+0              DATA  DATA  DATA       7a4 a4 (5b)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7de) -> 7a4
+    1     CRY0 r00 r02 RAM  D                PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.REG  (7d0) r2 <- reg low (hign nibble reg)
+    0     CRY0 r01 r01 RAMA D                PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       LOAD.RIR  READ.REG  (7d1) rir <- r1; r1 <- reg high (high nibble reg); 
+    0     CRY0 r00 r00 PASS D                PC    PC    PC         702 02 (fd) JSR? LOAD.FLR h11.0       k11.0       e6.0      BUS.READ  (7d2) bus read (load flags) (conditional call on odd register)
+    0     CRY0 r02 r02 RAM  D+A         CASE PC    PC    DATA       0ce ce (31)      LOAD.FLR h11.0       k11.0       e6.0      BUS.READ  (7d3) r2 += bus; load flags
+    0     CRY  r01 r01 RAM  A+0              DATA  DATA  DATA       7a4 a4 (5b)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7de) -> 7a4 add carry
 	
 7df 0     CRY  r01 r01 RAM  A-1              DATA  DATA  DATA       7a4 a4 (5b)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7df) -> 7a4
 
-    0     CRY0 r00 r00 PASS D.AND.A          DATA  DATA  DATA       72c 2c (d3)      LOAD.FLR h11.0       k11.0       LOAD.RIR  READ.SWP  (7a4)
-    1 RLO CRY0 r00 r00 PASS D           CASE PC    PC    DATA       0cd cd (32)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (72c) 
+7a4 0     CRY0 r00 r00 PASS D.AND.A          DATA  DATA  DATA       72c 2c (d3)      LOAD.FLR h11.0       k11.0       LOAD.RIR  READ.SWP  (7a4) low nibble reg
+    1 RLO CRY0 r00 r00 PASS D           CASE PC    PC    DATA       0cd cd (32)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (72c) zero? (72d/72f)
     1     CRY0 r02 r02 RAM  D+A              DATA  DATA  DATA       781 81 (7e)      LOAD.FLR h11.0       k11.0       e6.0      READ.REG  (72d)
     0     CRY  r01 r01 RAM  D+A              DATA  DATA  DATA       72f 2f (d0)      e7.0     h11.0       k11.0       e6.0      READ.REG  (781)
 
 72f 0     CRY1 r00 r00 RAM  A+0              PC    PC    PC         482 82 (7d) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (72f)
-    0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (730) r1/r2 <- P + highn reg + imm + lown reg (if not A) + 1
+    0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (730) r1/r2 <- highn reg + imm + lown reg (if not A)
 
 702 0     CRY0 r01 r01 RAM  D+A              DATA  DATA  DATA  POP  7db db (24)      e7.0     h11.1       k11.0       e6.0      BUS.READ  (702)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (7db)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (7dc)
     0     CRY0 r02 r02 RAM  D+A              PC    PC    PC         466 66 (99) JSR? LOAD.FLR h11.0       k11.0       e6.0      BUS.READ  (7dd)
     0     CRY  r01 r01 RAM  A+0              DATA  DATA  DATA       7a4 a4 (5b)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7de)
+	
 7a4 0     CRY0 r00 r00 PASS D.AND.A          DATA  DATA  DATA       72c 2c (d3)      LOAD.FLR h11.0       k11.0       LOAD.RIR  READ.SWP  (7a4)
     1 RLO CRY0 r00 r00 PASS D           CASE PC    PC    DATA       0cd cd (32)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (72c)
     1     CRY0 r02 r02 RAM  D+A              DATA  DATA  DATA       781 81 (7e)      LOAD.FLR h11.0       k11.0       e6.0      READ.REG  (72d)
@@ -196,7 +197,7 @@
     0     CRY1 r02 r03 PASS A+B              PC    PC    PC         000 00 (ff)      LOAD.FLR h11.0       k11.0       LOAD.RR   READ.SWP  (452)
     0     CRY  r01 r00 PASS A+0              PC    PC    PC         000 00 (ff)      e7.0     h11.0       LOAD.WAR.LO LOAD.RR   READ.SWP  (453)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.0     LOAD.WAR.HI k11.0       e6.0      READ.SWP  (454)
-    0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       LOAD.MAR  READ.SWP  (455) ; (r02/01 <- AR); AR += r03 + 1 
+    0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       LOAD.MAR  READ.SWP  (455) ; (r02/01 <- AR); AR += r03 + 1 (literal)
 
 
 
@@ -366,7 +367,7 @@
     0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (47f)
 
 594 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       1d4 d4 (2b)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (594) (nop)
-    0     CRY0 r00 r00 RAM  NOT.D            DATA  DATA  PC         70e 0e (f1)      e7.0     h11.1       k11.0       e6.0      CONST     (1d4) P
+    0     CRY0 r00 r00 RAM  NOT.D            DATA  DATA  PC         70e 0e (f1)      e7.0     h11.1       k11.0       e6.0      CONST     (1d4) 
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (705) 
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (706)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         636 36 (c9) JSR? e7.0     h11.1       k11.0       e6.0      READ.SWP  (707)
@@ -490,9 +491,9 @@
 3ab 0     CRY0 r03 r09 RAM  A                DATA  DATA  DATA  PUSH 3a8 a8 (57)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (3ab) swap r8/r3 
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       397 97 (68)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (3ac) -> 397
 
-397 0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (397)
+397 0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (397) P <- PC
     0     CRY0 r04 r00 PASS A                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       LOAD.SEQR READ.SWP  (398)
-    0     CRY0 r09 r09 RAM  A.XOR.B          DATA  REG   DATA       202 02 (fd)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (399)
+    0     CRY0 r09 r09 RAM  A.XOR.B          DATA  REG   DATA       202 02 (fd)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (399) r09 <- 0; RIR <- 0; disp REG
 
 3a7 0     CRY0 r03 r09 RAM  A                PC    PC    PC         000 00 (ff)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (3a7)
     0     CRY0 r08 r03 RAM  A                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (3a8)
@@ -681,6 +682,176 @@
 169 0     CRY0 r00 r00 PASS A+Q         CASE STACK STACK DATA  POP  0c9 c9 (36)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (169)
 
 
+r08 = op size 1 (maybe swapped)
+r03 = op size 2
+
+r07/r05 = addr 1
+r01/r02 = addr 2
+
+292 1 RLO CRY1 r08 r08 RAM  A+0              DATA  DATA  DATA       766 66 (99)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (292) r08++
+    0     CRY0 r00 r00 Q    D-1              DATA  DATA  DATA       700 00 (ff)      e7.0     h11.0       k11.0       e6.0      READ.REG  (766) Q <- AL - 1;
+    0     CRY0 r07 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? LOAD.FLR h11.0       k11.0       LOAD.RR   READ.SWP  (700) RR <- r07 + q
+    0     CRY1 r00 r07 RAM  Q+0              DATA  DATA  DATA       768 68 (97)      e7.0     h11.0       LOAD.WAR.LO e6.0      READ.SWP  (701) r07 = Q + 1
+    0     CRY  r05 r00 PASS A+0              DATA  DATA  DATA       47a 7a (85)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (768) r05 += c;
+    0     CRY0 r00 r05 RAM  ZERO             DATA  DATA  DATA  PUSH 4ef ef (10)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (47a) (MAR <- r07/r05; WAR <- r01/r02)
+    0     CRY0 r03 r09 RAM  D+A              PC    PC    PC         07f 7f (80)      e7.0     LOAD.WAR.HI LOAD.WAR.LO LOAD.MAR  CONST     (47b) swap ARs; r09 <- r03 + 0x80
+    0     CRY0 r03 r04 RAM  A                DATA  DATA  DATA  PUSH 010 10 (ef)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (47c) read start; r04 <- r03 (copy to int level 8 registers)
+    0     CRY1 r00 r08 RAM  B+0              DATA  DATA  DATA       418 18 (e7)      e7.0     h11.0       k11.0       LOAD.MAR  READ.SWP  (47d) r08++; MAR <- WAR 
+    0     CRY0 r00 r00 RAM  ZERO             DATA  DATA  DATA       41a 1a (e5)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (418) r00 <- 0
+    0     CRY0 r00 r01 RAM  ZERO             DATA  DATA  DATA       408 08 (f7)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (41a) r01 <- 0
+408 0     CRY0 r03 r02 RAM  A                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (408) r02 <- r03
+    0     CRY0 r02 r09 RAM  D+A              PC    PC    PC         07f 7f (80)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (409) r09 <- 0x80 + r02
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       41c 1c (e3)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (40a) (nop)
+    0     CRY0 r00 r00 Q    D                PC    PC    PC         785 85 (7a) JSR? LOAD.FLR h11.0       k11.0       e6.0      READ.REG  (41c) Q <- reg
+    0     CRY0 r02 r00 PASS A-1         CASE PC    PC    DATA       0c9 c9 (36)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (41d) flags (r02 - 1) (419, 41b)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       4a0 a0 (5f)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (419) NZ (nop) -> 4a0
+
+41b 0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0ce ce (31)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (41b) Z
+    0     CRY0 r02 r03 RAM  A-1              DATA  DATA  DATA  POP  408 08 (f7)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (41e) r3 <- r2 - 1; -> 408
+41f 0     CRY0 r07 r00 PASS A-1              DATA  DATA  DATA       753 53 (ac)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (41f) (all Z) flags (r07 - 1)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         004 04 (fb)      e7.0     h11.0       k11.0       LOAD.CCR  READ.SWP  (753) load CCR
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c9 c9 (36)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (754) r07 0?
+    0     CRY0 r05 r00 PASS A                DATA  DATA  DATA       7b4 b4 (4b)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (759) No -> 7b4
+
+75b 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       5d4 d4 (2b)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (75b) Yes
+    0     CRY0 r00 r00 PASS ZERO             DATA  DATA  DATA  PUSH 48e 8e (71)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (5d4) Load A with dest Ptr
+5d5 0     CRY0 r00 r09 RAM  NOT.D            DATA  DATA  DATA       5ee ee (11)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (5d5) RIR <- e (P)
+    0     CRY0 r00 r00 Q    NOT.D            DATA  DATA  DATA       39e 9e (61)      e7.0     h11.0       k11.0       e6.0      READ.CCR  (5ee) Q <- CCR
+    1 RLO CRY0 r06 r00 PASS A                DATA  DATA  DATA       46c 6c (93)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (39e) flags (r06)
+    1     CRY0 r00 r07 PASS D                DATA  DATA  DATA       3e3 e3 (1c)      e7.0     h11.0       F11.EN?     LOAD.RR   READ.REG  (46c) Forwards
+    0     CRY0 r00 r00 PASS D                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       LOAD.WAR.LO LOAD.RR   READ.REG  (3e3) p(hi)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c6 c6 (39)      e7.0     LOAD.WAR.HI k11.0       e6.0      READ.SWP  (3e4) r06 neg?
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       100 00 (ff)      e7.0     h11.0       k11.0       LOAD.MAR  READ.SWP  (3e6) no, PC <- P
+
+3e7 0     CRY0 r00 r00 PASS NOT.D.AND.Q      PC    PC    PC         020 20 (df)      LOAD.FLR h11.0       k11.0       LOAD.MAR  CONST     (3e7) yes 
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c9 c9 (36)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (3e8)
+    0     CRY0 r00 r00 PASS NOT.D            DATA  DATA  DATA       105 05 (fa)      e7.0     h11.0       k11.0       LOAD.RR   CONST     (3e9)
+
+3eb 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       100 00 (ff)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (3eb)
+
+
+7b4 0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c5 c5 (3a)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7b4)
+    0     CRY0 r00 r00 PASS ZERO             DATA  DATA  DATA  PUSH 48e 8e (71)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (7b5) A with dest ptr
+    0     CRY0 r00 r00 PASS D-1              DATA  DATA  DATA       7ab ab (54)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (7b6) RIR <- 3
+    1     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       79b 9b (64)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7ab) read
+    0     CRY0 r00 r00 RAM  D                DATA  DATA  DATA       7d6 d6 (29)      e7.0     h11.0       LOAD.DBR    LOAD.RR   READ.REG  (79b) db <- BL
+7d6 0     CRY0 r00 r06 PASS A+Q              DATA  DATA  DATA  PUSH 5d9 d9 (26)      e7.0     h11.2       F11.EN?     e6.0      READ.SWP  (7d6) Write, dec r07 and loop
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA  POP  5d5 d5 (2a)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7d7) -> 5d5
+
+5d9 0     CRY0 r00 r07 RAM  B-1              PC    PC    PC         5cc cc (33) JSR? LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (5d9)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (5da)
+    0     CRY0 r00 r00 PASS A+Q         CASE STACK STACK DATA       0c5 c5 (3a)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (5db)
+
+7d5 0     CRY0 r00 r00 PASS A                DATA  DATA  DATA  POP  7d6 d6 (29)      e7.0     h11.0       LOAD.DBR    LOAD.RR   READ.SWP  (7d5)
+
+
+On entry - r00 = 0 (?)
+
+
+4a0 0     CRY0 r00 r00 LSHQ A                DATA  DATA  DATA  PUSH 4ce ce (31)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a0) (some not zero)
+    0     CRY  r04 r04 RAM  A+B         CASE DATA  DATA  DATA  PUSH 4ce ce (31)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a1)
+    0     CRY  r04 r04 RAM  A+B         CASE DATA  DATA  DATA  PUSH 4ce ce (31)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a2)
+    0     CRY  r04 r04 RAM  A+B         CASE DATA  DATA  DATA  PUSH 4ce ce (31)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a3)
+    0     CRY  r04 r04 RAM  A+B              PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a4)
+    0     CRY0 r00 r00 PASS A+Q         CASE DATA  DATA  DATA  PUSH 4ce ce (31)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a5)
+    0     CRY  r04 r04 RAM  A+B         CASE DATA  DATA  DATA  PUSH 4ce ce (31)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a6)
+    0     CRY  r04 r04 RAM  A+B         CASE DATA  DATA  DATA  PUSH 4ce ce (31)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a7)
+    0     CRY  r04 r04 RAM  A+B         CASE PC    PC    DATA       0ca ca (35)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4a8)
+    0     CRY1 r08 r00 RAM  B-A-1            DATA  DATA  DATA       420 20 (df)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (4aa)
+    0     CRY  r04 r04 RAM  A+B         CASE PC    PC    DATA       0ca ca (35)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (420)
+    0     CRY0 r04 r01 RAM  A.OR.B           DATA  DATA  DATA       4c3 c3 (3c)      e7.0     h11.0       REG.WRITE   e6.0      READ.SWP  (42a)
+
+42b 0     CRY0 r08 r00 RAM  A+B              DATA  DATA  DATA       42a 2a (d5)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (42b)
+
+4ab 0     CRY0 r08 r00 RAM  A+B              DATA  DATA  DATA       420 20 (df)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (4ab)
+
+
+    0     CRY0 r00 r02 RAM  B-1              PC    PC    PC         785 85 (7a) JSR? LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (4c3)
+    0     CRY0 r02 r09 RAM  D+A              PC    PC    PC         07f 7f (80)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (4c4)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c6 c6 (39)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4c5)
+    0     CRY0 r00 r00 Q    D                DATA  DATA  DATA       4a0 a0 (5f)      e7.0     h11.0       k11.0       e6.0      READ.REG  (4c6) -> 4a0
+
+
+4c7 0     CRY1 r00 r00 PASS D+A              PC    PC    PC         00a 0a (f5)      LOAD.FLR h11.0       k11.0       e6.0      CONST     (4c7)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA  PUSH 0ca ca (35)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4c8)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       75c 5c (a3)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4c9)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA  PUSH 7eb eb (14)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (75c)
+    0     CRY0 r00 r07 RAM  B-1         CASE PC    PC    DATA       0c1 c1 (3e)      LOAD.FLR h11.0       F11.EN?     e6.0      READ.SWP  (75d)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c5 c5 (3a)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (751)
+    0     CRY0 r00 r00 RAM  ZERO             DATA  DATA  DATA       41a 1a (e5)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (755)
+
+
+4ca 0     CRY0 r00 r00 RAM  A-D-1            STACK STACK STACK POP  0b7 b7 (48)      e7.0     h11.0       k11.0       e6.0      CONST     (4ca)
+4cb 0     CRY0 r00 r00 RAM  A-D-1            STACK STACK STACK POP  0b0 b0 (4f)      e7.0     h11.0       k11.0       e6.0      CONST     (4cb)
+
+753 0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         004 04 (fb)      e7.0     h11.0       k11.0       LOAD.CCR  READ.SWP  (753)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c9 c9 (36)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (754)
+    0     CRY0 r05 r00 PASS A                DATA  DATA  DATA       7b4 b4 (4b)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (759)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c5 c5 (3a)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7b4)
+    0     CRY0 r00 r00 PASS ZERO             DATA  DATA  DATA  PUSH 48e 8e (71)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (7b5)
+    0     CRY0 r00 r00 PASS D-1              DATA  DATA  DATA       7ab ab (54)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (7b6)
+    1     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       79b 9b (64)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7ab)
+    0     CRY0 r00 r00 RAM  D                DATA  DATA  DATA       7d6 d6 (29)      e7.0     h11.0       LOAD.DBR    LOAD.RR   READ.REG  (79b)
+    0     CRY0 r00 r06 PASS A+Q              DATA  DATA  DATA  PUSH 5d9 d9 (26)      e7.0     h11.2       F11.EN?     e6.0      READ.SWP  (7d6)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA  POP  5d5 d5 (2a)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7d7)
+    0     CRY0 r00 r09 RAM  NOT.D            DATA  DATA  DATA       5ee ee (11)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (5d5)
+    0     CRY0 r00 r00 Q    NOT.D            DATA  DATA  DATA       39e 9e (61)      e7.0     h11.0       k11.0       e6.0      READ.CCR  (5ee)
+    1 RLO CRY0 r06 r00 PASS A                DATA  DATA  DATA       46c 6c (93)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (39e)
+    1     CRY0 r00 r07 PASS D                DATA  DATA  DATA       3e3 e3 (1c)      e7.0     h11.0       F11.EN?     LOAD.RR   READ.REG  (46c)
+    0     CRY0 r00 r00 PASS D                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       LOAD.WAR.LO LOAD.RR   READ.REG  (3e3)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c6 c6 (39)      e7.0     LOAD.WAR.HI k11.0       e6.0      READ.SWP  (3e4)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       100 00 (ff)      e7.0     h11.0       k11.0       LOAD.MAR  READ.SWP  (3e6)
+
+
+
+
+4ef 0     CRY0 r02 r00 PASS A                PC    PC    PC         000 00 (ff)      e7.0     LOAD.WAR.HI k11.0       LOAD.RR   READ.SWP  (4ef)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       LOAD.MAR  READ.SWP  (4f0)
+    0     CRY0 r01 r00 PASS A                PC    PC    PC         000 00 (ff)      e7.0     h11.0       LOAD.WAR.LO LOAD.RR   READ.SWP  (4f1)
+    0     CRY0 r00 r00 PASS A+Q              STACK STACK STACK POP  000 00 (ff)      e7.0     LOAD.WAR.HI k11.0       e6.0      READ.SWP  (4f2)
+
+010 0     CRY0 r09 r04 RAMA B-1              PC    PC    PC         643 43 (bc) JSR? LOAD.FLR h11.0       k11.0       LOAD.RIR  READ.SWP  (010) RIR <- r09; r04--; flags
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (011) cycle end
+    0     CRY0 r00 r00 PASS D                PC    PC    PC         74e 4e (b1) JSR? e7.0     h11.0       k11.0       LOAD.RR   BUS.READ  (012) RR <- bus
+    0     CRY0 r00 r00 Q    D.OR.Q      CASE PC    PC    DATA       0ce ce (31)      e7.0     h11.0       REG.WRITE   e6.0      BUS.READ  (013) 
+    0     CRY0 r00 r09 RAM  B-1              DATA  DATA  DATA       010 10 (ef)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (01e)
+01f 0     CRY0 r00 r00 PASS Q                STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (01f)
+
+48e 0     CRY0 r00 r00 RAM  NOT.D            PC    PC    PC         00f 0f (f0)      e7.0     h11.0       k11.0       e6.0      CONST     (48e)
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA       4eb eb (14)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (48f)
+    1 RLO CRY0 r00 r00 RAM  D.EQV.A          PC    PC    PC         000 00 (ff)      e7.0     h11.0       REG.WRITE   LOAD.RR   READ.AHI  (4eb)
+    1     CRY0 r00 r00 PASS A+Q              STACK STACK STACK POP  000 00 (ff)      e7.0     h11.0       REG.WRITE   e6.0      READ.SWP  (4ec)
+
+
+
+
+
+4ce 0     CRY1 r08 r00 LSHQ B-A-1            STACK STACK STACK POP  008 08 (f7)      LOAD.FLR h11.0       k11.0       LOAD.CCR  READ.SWP  (4ce)
+
+4cf 0     CRY0 r08 r00 LSHQ A+B              STACK STACK STACK POP  008 08 (f7)      LOAD.FLR h11.0       k11.0       LOAD.CCR  READ.SWP  (4cf)
+
+4ab 0     CRY0 r08 r00 RAM  A+B              DATA  DATA  DATA       420 20 (df)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (4ab)
+    0     CRY  r04 r04 RAM  A+B         CASE PC    PC    DATA       0ca ca (35)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (420)
+    0     CRY0 r04 r01 RAM  A.OR.B           DATA  DATA  DATA       4c3 c3 (3c)      e7.0     h11.0       REG.WRITE   e6.0      READ.SWP  (42a)
+    0     CRY0 r00 r02 RAM  B-1              PC    PC    PC         785 85 (7a) JSR? LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (4c3)
+    0     CRY0 r02 r09 RAM  D+A              PC    PC    PC         07f 7f (80)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (4c4)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c6 c6 (39)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4c5)
+    0     CRY0 r00 r00 Q    D                DATA  DATA  DATA       4a0 a0 (5f)      e7.0     h11.0       k11.0       e6.0      READ.REG  (4c6)
+
+42b 0     CRY0 r08 r00 RAM  A+B              DATA  DATA  DATA       42a 2a (d5)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (42b)
+    0     CRY0 r04 r01 RAM  A.OR.B           DATA  DATA  DATA       4c3 c3 (3c)      e7.0     h11.0       REG.WRITE   e6.0      READ.SWP  (42a)
+    0     CRY0 r00 r02 RAM  B-1              PC    PC    PC         785 85 (7a) JSR? LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (4c3)
+    0     CRY0 r02 r09 RAM  D+A              PC    PC    PC         07f 7f (80)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (4c4)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c6 c6 (39)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4c5)
+    0     CRY0 r00 r00 Q    D                DATA  DATA  DATA       4a0 a0 (5f)      e7.0     h11.0       k11.0       e6.0      READ.REG  (4c6)
+
+4c7 0     CRY1 r00 r00 PASS D+A              PC    PC    PC         00a 0a (f5)      LOAD.FLR h11.0       k11.0       e6.0      CONST     (4c7)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA  PUSH 0ca ca (35)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4c8)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       75c 5c (a3)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4c9)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA  PUSH 7eb eb (14)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (75c)
+    0     CRY0 r00 r07 RAM  B-1         CASE PC    PC    DATA       0c1 c1 (3e)      LOAD.FLR h11.0       F11.EN?     e6.0      READ.SWP  (75d)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c5 c5 (3a)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (751)
+    0     CRY0 r00 r00 RAM  ZERO             DATA  DATA  DATA       41a 1a (e5)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (755)
 
 
 
@@ -907,6 +1078,7 @@
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (082)
     0     CRY0 r00 r03 RAM  D                DATA  DATA  DATA       7d8 d8 (27)      e7.0     h11.0       k11.0       e6.0      BUS.READ  (083) r3 <- bus read
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (7d8) 
+
     0     CRY0 r00 r00 RAM  NOT.A            DATA  DATA  DATA  PUSH 44e 4e (b1)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (7d9) r0 <- 0f; arg 1
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       710 10 (ef)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7da)
     0     CRY0 r04 r00 Q    A           CASE DATA  DATA  DATA       7cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (710) (7cd, 7cf)
@@ -971,15 +1143,32 @@
     0     CRY0 r00 r03 RAM  D                DATA  DATA  DATA       7d8 d8 (27)      e7.0     h11.0       k11.0       e6.0      BUS.READ  (083)
 	
 7d8 0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (7d8)
+
     0     CRY0 r00 r00 RAM  NOT.A            DATA  DATA  DATA  PUSH 44e 4e (b1)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (7d9) dispatch on r04 & 0c (first arg)
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       710 10 (ef)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7da)
     0     CRY0 r04 r00 Q    A           CASE DATA  DATA  DATA       7cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (710) (7cd, 7cf)
-    0     CRY0 r00 r02 RAM  ZERO             DATA  REG   DATA       00a 0a (f5)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51d)
 
 
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       51b 1b (e4)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7cd)
     0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (51b) p <- PC
     0     CRY0 r00 r07 PASS B                DATA  DATA  DATA  PUSH 4ee ee (11)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51c) load ARs with pointers
+    0     CRY0 r00 r02 RAM  ZERO             DATA  REG   DATA       00a 0a (f5)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51d)
+
+
+7cf 0     CRY0 r04 r04 RAM  A+B              DATA  DATA  DATA       77a 7a (85)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7cf)
+    0     CRY0 r04 r04 RAM  A+B              DATA  DATA  DATA       74c 4c (b3)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (77a)
+    0     CRY0 r01 r05 RAM  A                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (74c)
+    0     CRY0 r02 r07 RAM  A                DATA  DATA  DATA       51a 1a (e5)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (74d)
+    0     CRY0 r00 r00 PASS A.EQV.B          DATA  DATA  DATA  PUSH 4cc cc (33)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (51a)
+
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (51b)
+    0     CRY0 r00 r07 PASS B                DATA  DATA  DATA  PUSH 4ee ee (11)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51c)
+    0     CRY0 r00 r02 RAM  ZERO             DATA  REG   DATA       00a 0a (f5)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51d)
+
+
+
+
+
 
 08a 0     CRY1 r00 r03 RAM  B+0              DATA  DATA  DATA       4f3 f3 (0c)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (08a)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         643 43 (bc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (4f3)
@@ -1001,17 +1190,53 @@
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       3e6 e6 (19)      e7.0     LOAD.WAR.HI k11.0       e6.0      READ.SWP  (4b5)
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       100 00 (ff)      e7.0     h11.0       k11.0       LOAD.MAR  READ.SWP  (3e6)
 
+
+
+
+
+
+
 79c 0     CRY0 r00 r03 RAM  ZERO             DATA  DATA  DATA       7bd bd (42)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (79c) r03 <- 0
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (7bd)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (7be)
     0     CRY0 r00 r08 RAM  D                DATA  DATA  DATA       7d8 d8 (27)      e7.0     h11.0       k11.0       e6.0      BUS.READ  (7bf) r08 <- data bus -> 7d8
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (7d8) 
+    0     CRY0 r00 r00 RAM  NOT.A            DATA  DATA  DATA  PUSH 44e 4e (b1)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (7d9) r0 <- 0f; arg 1
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       710 10 (ef)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7da)
+    0     CRY0 r04 r00 Q    A           CASE DATA  DATA  DATA       7cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (710) (7cd, 7cf)
 
-5eb 0     CRY0 r00 r00 RAM  ZERO        CASE PC    PC    DATA       0c1 c1 (3e)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (5eb) Z (5e1, 5e3)
+7cf 0     CRY0 r04 r04 RAM  A+B              DATA  DATA  DATA       77a 7a (85)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7cf)
+    0     CRY0 r04 r04 RAM  A+B              DATA  DATA  DATA       74c 4c (b3)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (77a)
+    0     CRY0 r01 r05 RAM  A                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (74c)
+    0     CRY0 r02 r07 RAM  A                DATA  DATA  DATA       51a 1a (e5)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (74d)
+    0     CRY0 r00 r00 PASS A.EQV.B          DATA  DATA  DATA  PUSH 4cc cc (33)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (51a) arg2
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (51b)
+    0     CRY0 r00 r07 PASS B                DATA  DATA  DATA  PUSH 4ee ee (11)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51c)
+    0     CRY0 r00 r02 RAM  ZERO             DATA  REG   DATA       00a 0a (f5)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51d)
 
-5e7 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       4f3 f3 (0c)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (5e7) Z
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         643 43 (bc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (4f3) -> 4f3
 
 
+
+
+
+09a 0     CRY1 r08 r03 RAM  A+0              DATA  DATA  DATA       43c 3c (c3)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (09a) r03 <- r08 + 1
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         643 43 (bc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (43c) 
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       7e0 e0 (1f)      e7.3     LOAD.WAR.HI LOAD.WAR.LO LOAD.MAR  READ.SWP  (43d) load read, swap AR
+    0     CRY0 r00 r01 RAM  D                PC    PC    PC         626 26 (d9) JSR? e7.0     h11.0       k11.0       e6.0      BUS.READ  (7e0) r1 <- bus
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (7e1) (nop)
+    0     CRY0 r01 r00 PASS A                DATA  DATA  DATA       70c 0c (f3)      e7.0     h11.0       LOAD.DBR    LOAD.RR   READ.SWP  (7e2) write
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       7e9 e9 (16)      e7.0     h11.2       k11.0       e6.0      READ.SWP  (70c) write
+    0     CRY0 r03 r03 RAM  A-1              PC    PC    PC         5cc cc (33) JSR? LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (7e9) r03--
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c1 c1 (3e)      e7.3     h11.5       k11.0       e6.0      READ.SWP  (7ea) (7e1, 7e3)
+
+7e3 0     CRY0 r00 r00 PASS NOT.D            DATA  DATA  DATA       02e 2e (d1)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (7e3)
+    1 RLO CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       4bd bd (42)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (02e)
+    1     CRY0 r00 r00 PASS D                DATA  DATA  DATA       4b4 b4 (4b)      e7.0     h11.0       k11.0       LOAD.RR   READ.REG  (4bd)
+    0     CRY0 r00 r00 PASS D                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       LOAD.WAR.LO LOAD.RR   READ.REG  (4b4)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       3e6 e6 (19)      e7.0     LOAD.WAR.HI k11.0       e6.0      READ.SWP  (4b5)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       100 00 (ff)      e7.0     h11.0       k11.0       LOAD.MAR  READ.SWP  (3e6)
+
+The 47 9e 03 c0 04 is a memset of c0 to [x] 4 bytes selector 9, first operand literal, second operand register indexed, size 3 (+1) = 4, literal = c0, address = [x]
 
 
 
@@ -1056,6 +1281,7 @@
 
 F7
 
+    1     CRY0 r07 r01 RAMA D                DATA  REG   REG        100 00 (ff)      e7.0     READ.START  k11.0       LOAD.SEQR READ.REG  (104) ; R01 <- AL
 113 0     CRY1 r08 r00 PASS A+0              DATA  DATA  DATA       7ca ca (35)      e7.0     LOAD.NSWPR  k11.0       LOAD.RIR  READ.REG  (113) ; RIR <- 2 (B); Load Swap from AH
     1 RLO CRY0 r07 r07 RAM  A-1              DATA  DATA  DATA       7cc cc (33)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7ca) ; R07-- (F6)
     1     CRY0 r07 r03 RAMA D                DATA  DATA  DATA       7fc fc (03)      e7.0     h11.0       k11.0       LOAD.RIR  READ.REG  (7cc) ; r03 <- BL; RIR <- 6
@@ -1063,36 +1289,33 @@ F7
     1     CRY0 r03 r05 RAMA D                DATA  DATA  DATA       50b 0b (f4)      e7.3     LOAD.WAR.HI k11.0       LOAD.RR   READ.REG  (7ce) ; Work AR High <- RR; r05 <- YL; RR <- r03
     0     CRY0 r00 r04 RAM  D                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       LOAD.WAR.LO e6.0      READ.REG  (50b) ; Work AR Low <- RR; r04 <- YH
     0     CRY0 r00 r00 PASS NOT.D            DATA  DATA  DATA  PUSH 48e 8e (71)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (50c) ; RIR <- 8e (P); JSR save PC
-    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       7fe fe (01)      e7.0     LOAD.NSWPR  k11.0       LOAD.MAR  READ.SWP  (50d) ; Load Swap (propagation delay?); Load MAR
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       7fe fe (01)      e7.0     LOAD.NSWPR  k11.0       LOAD.MAR  READ.SWP  (50d) ; Load Swap; Load MAR
     0     CRY0 r04 r00 PASS A                DATA  DATA  DATA       7bb bb (44)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (7fe) ; RR <- R04
     0     CRY0 r05 r00 PASS A                DATA  DATA  DATA       7e4 e4 (1b)      e7.0     LOAD.WAR.HI k11.0       LOAD.RR   READ.SWP  (7bb) ; Work AR High <- RR; RR <- r05
-    0     CRY0 r00 r00 RAM  D                PC    PC    PC         000 00 (ff)      e7.0     h11.1       LOAD.WAR.LO e6.0      READ.SWP  (7e4) ; Load AR Low; r00 <- swapper
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         643 43 (bc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (7e5) ; (nop) JSR?3 643
+    0     CRY0 r00 r00 RAM  D                PC    PC    PC         000 00 (ff)      e7.0     h11.1       LOAD.WAR.LO e6.0      READ.SWP  (7e4) ; Load AR Low; r00 <- swapper (AH)
+
+7e5 0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         643 43 (bc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (7e5) ; (nop) JSR?3 643
     0     CRY0 r00 r01 Q    A.OR.B           PC    PC    PC         785 85 (7a) JSR? e7.3     LOAD.WAR.HI LOAD.WAR.LO LOAD.MAR  READ.SWP  (7e6) ; Swap ARs; Q <- r00 | r01
-    0     CRY0 r01 r01 RAM  A-1              PC    PC    PC         76e 6e (91) JSR? LOAD.FLR h11.4       k11.0       e6.0      READ.SWP  (7e7) ; Load Flags; H11.4 (inc AR? Dec AR?)
+    0     CRY0 r01 r01 RAM  A-1              PC    PC    PC         76e 6e (91) JSR? LOAD.FLR h11.4       k11.0       e6.0      READ.SWP  (7e7) ; Load Flags; WAR++; r01--
     0     CRY0 r00 r00 PASS D                DATA  DATA  DATA       02c 2c (d3)      e7.0     h11.0       LOAD.DBR    LOAD.RR   BUS.READ  (7e8) ; DBR <- Bus Read; RR <- Bus read
     0     CRY  r00 r00 RAM  A-1              DATA  DATA  DATA  PUSH 76c 6c (93)      e7.0     h11.2       k11.0       e6.0      READ.SWP  (02c) ; call 76c; r0--
-    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       4ae ae (51)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (02d) ; H11.1
-    0     CRY0 r00 r00 RAM  NOT.D            PC    PC    PC         07f 7f (80)      e7.0     h11.0       k11.0       e6.0      CONST     (4ae) ; r0 <- 7f
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         643 43 (bc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (4af) ; (nop) JSR?3 643
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (4b0) ; Bus cycle start (read)
-    0     CRY0 r00 r00 RAM  D.AND.A          PC    PC    PC         74e 4e (b1) JSR? e7.0     h11.0       k11.0       e6.0      BUS.READ  (4b1) ; r0 <- data bus & 0x7f
-    0     CRY1 r00 r00 PASS D+A              PC    PC    PC         030 30 (cf)      LOAD.FLR h11.0       k11.0       e6.0      CONST     (4b2) ; r0 += d0; load flags
-    0     CRY0 r03 r05 RAM  A           CASE PC    PC    DATA       0c6 c6 (39)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4b3) ; case minus; r05 <- r03
-    0     CRY1 r00 r00 PASS D+A              PC    PC    DATA       048 48 (b7)      LOAD.FLR h11.0       k11.0       e6.0      CONST     (4b6) ; r0 += 49; load flags
-    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0ca ca (35)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4b8) ; case minus
-    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       468 68 (97)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (4ba) ; (nop)
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         008 08 (f7)      e7.0     h11.0       k11.0       LOAD.CCR  READ.SWP  (468) ; Load CCR (fault SET)
-    0     CRY0 r00 r00 Q    NOT.D            PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      READ.CCR  (469) ; Q <- CCR
-    0     CRY0 r00 r00 PASS NOT.D            PC    PC    PC         00e 0e (f1)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (46a) ; RIR <- 14 (P)
-    1 RLO CRY0 r06 r00 PASS A                PC    PC    PC         011 11 (ee)      LOAD.FLR h11.0       k11.0       LOAD.CCR  READ.SWP  (46b) ; load flags; load CCR 
-    1     CRY0 r00 r07 PASS D                DATA  DATA  DATA       3e3 e3 (1c)      e7.0     h11.0       F11.EN?     LOAD.RR   READ.REG  (46c) ; Turn on F11.3
-    0     CRY0 r00 r00 PASS D                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       LOAD.WAR.LO LOAD.RR   READ.REG  (3e3) ; load PC <- P
-    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0c6 c6 (39)      e7.0     LOAD.WAR.HI k11.0       e6.0      READ.SWP  (3e4) ; more; case minus
-    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       100 00 (ff)      e7.0     h11.0       k11.0       LOAD.MAR  READ.SWP  (3e6) ; load MAR
-	
+
 76c 0     CRY0 r00 r00 PASS Q                PC    PC    PC         5cc cc (33) JSR? LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (76c)
     0     CRY0 r00 r00 PASS A+Q         CASE STACK STACK DATA       0c9 c9 (36)      e7.3     LOAD.WAR.HI LOAD.WAR.LO LOAD.MAR  READ.SWP  (76d)
+
+029 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA  POP  79d 9d (62)      e7.0     READ.START  k11.0       e6.0      READ.SWP  (029)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       7e5 e5 (1a)      e7.0     INC.WAR     k11.0       e6.0      READ.SWP  (79d) -> 7e5
+
+02b 0     CRY0 r00 r00 PASS NOT.D            DATA  DATA  DATA  POP  02e 2e (d1)      e7.0     h11.0       k11.0       LOAD.RIR  CONST     (02b)
+    1 RLO CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       4bd bd (42)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (02e)
+    1     CRY0 r00 r00 PASS D                DATA  DATA  DATA       4b4 b4 (4b)      e7.0     h11.0       k11.0       LOAD.RR   READ.REG  (4bd)
+    0     CRY0 r00 r00 PASS D                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       LOAD.WAR.LO LOAD.RR   READ.REG  (4b4)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       3e6 e6 (19)      e7.0     LOAD.WAR.HI k11.0       e6.0      READ.SWP  (4b5)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       100 00 (ff)      e7.0     h11.0       k11.0       LOAD.MAR  READ.SWP  (3e6) PC <- P
+
+
+
+	
 
 
 68 - STX
@@ -1579,15 +1802,107 @@ The word at the EA is modified by the 3x operation. So 0x0192    32 FE will (I t
 
 67
 
-0000 (0000) 0     CRY0 r05 r05 RAM  A.XOR.B          DATA  DATA  DATA       0b7 b7 (48)      e7.0     h11.0       F11.EN?     LOAD.PTBR READ.SWP seqs = 00  next = 0b7: a17c
-0000 (017c) 0     CRY0 r06 r06 RAM  D.OR.A           STACK STACK STACK      07f 7f (80)      e7.0     h11.0       k11.0       e6.0      CONST    seqs = 15  next = 000:
-0001 (0000) 0     CRY0 r05 r05 RAM  A.XOR.B          DATA  DATA  DATA       0b7 b7 (48)      e7.0     h11.0       F11.EN?     LOAD.PTBR READ.SWP seqs = 00  next = 0b7: a1b0
-0001 (01b0) 0     CRY0 r09 r09 RAM  A.XOR.B          PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP seqs = 3f  next = 1b1:
-0002 (01b1) 0     CRY0 r00 r00 RAM  NOT.D            PC    PC    PC         0c0 c0 (3f)      e7.3     h11.5       k11.0       e6.0      CONST    seqs = 3f  next = 1b2:
-0003 (01b2) 0     CRY0 r00 r00 PASS D.AND.A          PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       LOAD.SEQR BUS.READ seqs = 3f  next = 1b3:
-0004 (01b3) 0     CRY0 r00 r04 RAM  D                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      BUS.READ seqs = 3f  next = 1b4:
-0005 (01b4) 1     CRY0 r00 r00 RAM  NOT.D            PC    PC    PC         0f0 f0 (0f)      e7.0     h11.0       k11.0       e6.0      CONST    seqs = 3f  next = 1b5:
-0006 (01b5) 1 RLO CRY0 r04 r08 RAMA D                DATA  REG   DATA       709 09 (f6)      e7.0     h11.0       k11.0       LOAD.SEQR READ.REG seqs = 08  next = fff:
+
+
+1b0 0     CRY0 r09 r09 RAM  A.XOR.B          PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (1b0) RIR <- 0
+    0     CRY0 r00 r00 RAM  NOT.D            PC    PC    PC         0c0 c0 (3f)      LATCH    INC.MAR     k11.0       e6.0      CONST     (1b1) r00 <- 0xc0; latch; inc MAR
+    0     CRY0 r00 r00 PASS D.AND.A          PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       LOAD.SEQR BUS.READ  (1b2) seq AR <- bus & c0
+    0     CRY0 r00 r04 RAM  D                PC    PC    PC         785 85 (7a) JSR? e7.0     h11.0       k11.0       e6.0      BUS.READ  (1b3) r04 <- bus
+    1     CRY0 r00 r00 RAM  NOT.D            PC    PC    PC         0f0 f0 (0f)      e7.0     h11.0       k11.0       e6.0      CONST     (1b4) r00 <- 0xf0
+    1 RLO CRY0 r04 r08 RAMA D                DATA  REG   DATA       709 09 (f6)      e7.0     h11.0       k11.0       LOAD.SEQR READ.REG  (1b5) r08 <- reg; seq AR <- r04; dispatch on 2nd byte & c0
+
+
+67 [0-3]x
+
+709 0     CRY0 r00 r03 RAM  D                DATA  DATA  DATA       70f 0f (f0)      e7.0     h11.0       k11.0       e6.0      READ.REG  (709)
+    0     CRY0 r00 r00 RAM  NOT.A            DATA  DATA  DATA  PUSH 48c 8c (73)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (70f) r0 <- ~r0 (0f); arg 1
+    0     CRY0 r04 r00 Q    A           CASE DATA  DATA  DATA       7cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (710) Q <- r04
+
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       51b 1b (e4)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7cd) -> 51b
+
+7cf 0     CRY0 r04 r04 RAM  A+B              DATA  DATA  DATA       77a 7a (85)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7cf) << 1
+    0     CRY0 r04 r04 RAM  A+B              DATA  DATA  DATA       74c 4c (b3)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (77a) << 1
+    0     CRY0 r02 r07 RAM  A                DATA  DATA  DATA       51a 1a (e5)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (74d) 
+    0     CRY0 r00 r00 PASS A.EQV.B          DATA  DATA  DATA  PUSH 4cc cc (33)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (51a) flags(minus); arg2; -> 51b
+
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (51b)
+    0     CRY0 r00 r07 PASS B                DATA  DATA  DATA  PUSH 4ee ee (11)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51c)
+    0     CRY0 r00 r02 RAM  ZERO             DATA  REG   DATA       00a 0a (f5)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51d) r02 <- 0; dispatch [0-3]
+
+
+
+
+67 [4-7]x
+
+749 0     CRY0 r00 r03 RAM  D                DATA  DATA  DATA       7d9 d9 (26)      e7.0     h11.0       k11.0       e6.0      READ.REG  (749)
+    0     CRY0 r00 r00 RAM  NOT.A            DATA  DATA  DATA  PUSH 44e 4e (b1)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (7d9)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       710 10 (ef)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7da)
+    0     CRY0 r04 r00 Q    A           CASE DATA  DATA  DATA       7cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (710)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       51b 1b (e4)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7cd)
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (51b)
+    0     CRY0 r00 r07 PASS B                DATA  DATA  DATA  PUSH 4ee ee (11)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51c)
+    0     CRY0 r00 r02 RAM  ZERO             DATA  REG   DATA       00a 0a (f5)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51d) r02 <- 0; dispatch [0-3]
+
+67 [8-b]x
+
+789 0     CRY0 r00 r08 RAM  D                DATA  REG   DATA       70a 0a (f5)      e7.0     h11.0       k11.0       e6.0      READ.REG  (789)
+78a 0     CRY0 r08 r03 RAM  A                DATA  DATA  DATA       7d9 d9 (26)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (78a)
+
+    0     CRY0 r00 r00 RAM  NOT.A            DATA  DATA  DATA  PUSH 44e 4e (b1)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (7d9)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       710 10 (ef)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7da)
+    0     CRY0 r04 r00 Q    A           CASE DATA  DATA  DATA       7cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (710)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       51b 1b (e4)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7cd)
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (51b)
+    0     CRY0 r00 r07 PASS B                DATA  DATA  DATA  PUSH 4ee ee (11)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51c)
+
+79a 0     CRY0 r00 r03 RAM  ZERO             DATA  DATA  DATA       7d9 d9 (26)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (79a)
+
+    0     CRY0 r00 r00 RAM  NOT.A            DATA  DATA  DATA  PUSH 44e 4e (b1)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (7d9)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       710 10 (ef)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7da)
+    0     CRY0 r04 r00 Q    A           CASE DATA  DATA  DATA       7cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (710)
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       51b 1b (e4)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7cd)
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA  PUSH 4ea ea (15)      e7.0     h11.0       k11.0       LOAD.RR   READ.ALO  (51b)
+    0     CRY0 r00 r07 PASS B                DATA  DATA  DATA  PUSH 4ee ee (11)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51c)
+    0     CRY0 r00 r02 RAM  ZERO             DATA  REG   DATA       00a 0a (f5)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (51d)
+
+
+
+7c9 0     CRY0 r00 r00 PASS ZERO             DATA  DATA  DATA       105 05 (fa)      e7.0     h11.0       k11.0       LOAD.RR   READ.SWP  (7c9)
+
+
+(dispatch)
+
+48c 0     CRY0 r04 r00 PASS D.AND.A          PC    PC    PC         0f3 f3 (0c)      e7.0     h11.0       k11.0       LOAD.SEQR CONST     (48c) r04 & 0c
+    0     CRY0 r04 r00 PASS A                DATA  DATA  REG        590 90 (6f)      e7.0     h11.0       k11.0       LOAD.SEQR READ.SWP  (48d)
+
+590 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       441 41 (be)      e7.0     READ.START  k11.0       e6.0      READ.SWP  (590)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (441)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? LATCH    INC.MAR     k11.0       e6.0      READ.SWP  (442)
+    0     CRY0 r00 r01 RAM  D                PC    PC    PC         636 36 (c9) JSR? e7.0     READ.START  k11.0       e6.0      BUS.READ  (443) r01 <- bus
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (444) 
+    0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       47e 7e (81)      LATCH    INC.MAR     k11.0       e6.0      READ.SWP  (445) 
+    0     CRY0 r00 r02 RAM  D                PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       e6.0      BUS.READ  (47e) r02 <- bus
+    0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (47f) flags(0)
+	
+594 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       1d4 d4 (2b)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (594)
+    0     CRY0 r00 r00 RAM  NOT.D            DATA  DATA  PC         70e 0e (f1)      e7.0     READ.START  k11.0       e6.0      CONST     (1d4)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (705)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? LATCH    INC.MAR     k11.0       e6.0      READ.SWP  (706)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         636 36 (c9) JSR? e7.0     READ.START  k11.0       e6.0      READ.SWP  (707)
+    0     CRY0 r00 r00 PASS D                DATA  DATA  DATA       71c 1c (e3)      e7.0     LOAD.NSWPR  k11.0       LOAD.RIR  BUS.READ  (708)
+    0     CRY0 r00 r09 RAM  D.AND.A          PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (71c)
+    1 RLO CRY0 r00 r01 RAM  D                DATA  DATA  DATA       7d0 d0 (2f)      e7.0     LOAD.NSWPR  k11.0       e6.0      READ.SWP  (71d)
+    1     CRY0 r00 r02 RAM  D                PC    PC    PC         785 85 (7a) JSR? LATCH    INC.MAR     k11.0       e6.0      READ.REG  (7d0)
+    0     CRY0 r01 r01 RAMA D                PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       LOAD.RIR  READ.REG  (7d1)
+    0     CRY0 r00 r00 PASS D                PC    PC    PC         702 02 (fd) JSR? LOAD.FLR h11.0       k11.0       e6.0      BUS.READ  (7d2)
+    0     CRY0 r02 r02 RAM  D+A         CASE PC    PC    DATA       0ce ce (31)      LOAD.FLR h11.0       k11.0       e6.0      BUS.READ  (7d3)
+    0     CRY  r01 r01 RAM  A+0              DATA  DATA  DATA       7a4 a4 (5b)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (7de)
+    0     CRY0 r00 r00 PASS D.AND.A          DATA  DATA  DATA       72c 2c (d3)      LOAD.FLR h11.0       k11.0       LOAD.RIR  READ.SWP  (7a4)
+    1 RLO CRY0 r00 r00 PASS D           CASE PC    PC    DATA       0cd cd (32)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (72c)
+    1     CRY0 r02 r02 RAM  D+A              DATA  DATA  DATA       781 81 (7e)      LOAD.FLR h11.0       k11.0       e6.0      READ.REG  (72d)
+    0     CRY  r01 r01 RAM  D+A              DATA  DATA  DATA       72f 2f (d0)      e7.0     h11.0       k11.0       e6.0      READ.REG  (781)
+    0     CRY1 r00 r00 RAM  A+0              PC    PC    PC         482 82 (7d) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (72f)
+    0     CRY0 r00 r00 PASS ZERO             STACK STACK STACK POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       e6.0      READ.SWP  (730)
 
 
 
@@ -1596,13 +1911,15 @@ The word at the EA is modified by the 3x operation. So 0x0192    32 FE will (I t
 
 150 0     CRY0 r00 r07 RAM  NOT.D            PC    PC    PC         001 01 (fe)      e7.0     h11.0       k11.0       LOAD.SEQR CONST     (150) 
     0     CRY0 r00 r08 RAM  ZERO             PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (151) r08 <- 0
-    0     CRY1 r08 r03 RAM  A+0              DATA  DATA  REG        330 30 (cf)      e7.3     h11.5       k11.0       e6.0      READ.SWP  (152) r03 <- 1
-331 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       342 42 (bd)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (331) nop
+    0     CRY1 r08 r03 RAM  A+0              DATA  DATA  REG        330 30 (cf)      e7.3     h11.5       k11.0       e6.0      READ.SWP  (152) r03 <- 1; latch
+
+331 0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       342 42 (bd)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (331) Read
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         636 36 (c9) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (342) nop
     0     CRY0 r00 r04 RAM  D                PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       LOAD.RR   BUS.READ  (343) r04 <- bus; RR <- bus
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (344) 
     0     CRY0 r00 r05 RAM  D                PC    PC    PC         466 66 (99) JSR? e7.0     LOAD.WAR.HI k11.0       LOAD.RR   BUS.READ  (345) 
     0     CRY0 r08 r09 RAM  A                DATA  REG   DATA       203 03 (fc)      e7.0     h11.0       LOAD.WAR.LO LOAD.RIR  READ.SWP  (346) RIR <- 0
+	
 203 0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.0     LOAD.WAR.HI LOAD.WAR.LO LOAD.MAR  READ.SWP  (203) swap AR
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       44c 4c (b3)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (204)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         63b 3b (c4) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (44c)
@@ -1630,20 +1947,66 @@ The word at the EA is modified by the 3x operation. So 0x0192    32 FE will (I t
 
 D6
 
+D6 appears to have different modes depending on whether the registers are odd or even
+General form is D6 dest/src
+Both even: 16 bit dest <- src (General Register mov)
+dest odd; src even: 16 bit store of src to literal at PC
+dest odd; src odd:  16 bit indexed store of src to (dest + 16 bit index)
+dest even; src odd: 16 bit direct store of src
+
 16b 0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (16b) nop
     0     CRY0 r00 r08 RAM  NOT.D            PC    PC    PC         0ee ee (11)      e7.3     h11.5       k11.0       e6.0      CONST     (16c) r08 <- ee
-    0     CRY0 r00 r05 RAM  D                PC    PC    PC         466 66 (99) JSR? e7.0     LOAD.NSWPR  k11.0       LOAD.RIR  BUS.READ  (16d) RIR <- bus; nswp <- bus; r5 <- bus
-    1 RLO CRY0 r00 r04 RAM  D                PC    PC    PC         492 92 (6d) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (16e) r4 <- swap (JSR?Odd 492)
-    1     CRY0 r00 r01 RAM  D                PC    PC    PC         2f9 f9 (06) JSR? e7.0     h11.0       k11.0       e6.0      READ.REG  (16f) r1 <- reg low
+    0     CRY0 r00 r05 RAM  D                PC    PC    PC         466 66 (99) JSR? e7.0     LOAD.NSWPR  k11.0       LOAD.RIR  BUS.READ  (16d) RIR <- bus (low nibble); nswp <- bus; r5 <- bus
+    1 RLO CRY0 r00 r04 RAM  D                PC    PC    PC         492 92 (6d) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (16e) r4 <- swap (JSR?Odd 492) [low nibble odd]
+    1     CRY0 r00 r01 RAM  D                PC    PC    PC         2f9 f9 (06) JSR? e7.0     h11.0       k11.0       e6.0      READ.REG  (16f) r1 <- reg low (JSR?Even 2f9)
     1 RLO CRY0 r00 r02 RAM  D                DATA  DATA  DATA       312 12 (ed)      e7.0     h11.0       LOAD.DBR    LOAD.RR   READ.REG  (170) r2 <- reg high; write to bus
     0     CRY0 r00 r01 RAM  D                PC    PC    PC         000 00 (ff)      e7.0     h11.2       k11.0       e6.0      READ.REG  (312) r1 <- reg low
-    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         6fc fc (03) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (313)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         6fc fc (03) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (313) 
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (314)
     0     CRY0 r01 r00 PASS A                PC    PC    PC         000 00 (ff)      LOAD.FLR h11.0       LOAD.DBR    LOAD.RR   READ.SWP  (315) r
     0     CRY0 r02 r00 PASS A                PC    PC    PC         000 00 (ff)      LOAD.FLR h11.2       k11.0       e6.0      READ.SWP  (316)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         6fc fc (03) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (317)
     0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         013 13 (ec)      e7.3     h11.5       k11.0       LOAD.CCR  READ.SWP  (318)
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       101 01 (fe)      e7.0     h11.1       k11.0       e6.0      READ.SWP  (319)
+
+492 0     CRY0 r04 r09 RAM  NOT.D.AND.A      PC    PC    PC    POP  00e 0e (f1)      e7.0     h11.1       k11.0       LOAD.RIR  CONST     (492) r09 <- r04 & 0xe; RIR <- r09; read
+    1 RLO CRY0 r00 r00 PASS A+Q              PC    PC    PC         633 33 (cc) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (493) 
+    0     CRY0 r00 r03 RAM  D                PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.REG  (494) r03 < read reg (low); latch; PC++
+    1     CRY0 r00 r00 RAM  D                PC    PC    PC         636 36 (c9) JSR? e7.0     h11.1       k11.0       LOAD.RR   BUS.READ  (495) RR <- bus; r0 <- bus; read
+    0     CRY0 r00 r02 RAM  D                PC    PC    PC         633 33 (cc) JSR? e7.0     LOAD.WAR.HI k11.0       e6.0      READ.REG  (496) r02 <- read reg (high); WAR (hi) <- RR
+    0     CRY0 r04 r00 PASS A                DATA  DATA  DATA       147 47 (b8)      e7.0     h11.0       k11.0       LOAD.RIR  READ.SWP  (497) RIR <- r04;
+    0     CRY0 r05 r09 RAM  A                PC    PC    PC         422 22 (dd) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (147) r09 <- r05; latch; PC++; JSR?Odd 422
+    0     CRY0 r00 r00 PASS D                PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       k11.0       LOAD.RR   BUS.READ  (148) RR <- bus;
+    0     CRY0 r08 r09 RAM  A.AND.B          DATA  DATA  DATA       2b3 b3 (4c)      e7.0     h11.0       LOAD.WAR.LO LOAD.RIR  READ.SWP  (149) r09 &= r08; RIR <- r09; WAR (lo) <- RR
+    1     CRY0 r00 r00 PASS A+Q              PC    PC    PC         000 00 (ff)      e7.0     LOAD.WAR.HI LOAD.WAR.LO LOAD.MAR  READ.SWP  (2b3) swap ARs
+    1 RLO CRY0 r00 r02 RAM  D                PC    PC    PC         000 00 (ff)      e7.0     h11.0       LOAD.DBR    LOAD.RR   READ.REG  (2b4) RR/DBR <- reg (high); r02 <- reg (high)
+    0     CRY0 r00 r00 Q    D                PC    PC    PC         000 00 (ff)      e7.0     h11.2       k11.0       e6.0      READ.REG  (2b5) write; Q <- reg (low)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         66c 6c (93) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (2b6) nop
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? e7.3     h11.5       k11.0       e6.0      READ.SWP  (2b7) latch, PC++
+    0     CRY0 r00 r00 PASS Q                DATA  DATA  DATA       2a5 a5 (5a)      LOAD.FLR h11.0       LOAD.DBR    LOAD.RR   READ.SWP  (2b8) RR/DBR <- Q; load flags
+    0     CRY0 r02 r00 PASS A                PC    PC    PC         000 00 (ff)      LOAD.FLR h11.2       k11.0       e6.0      READ.SWP  (2a5) Write
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         66c 6c (93) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (2a6) 
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         000 00 (ff)      e7.3     h11.0       k11.0       LOAD.MAR  READ.SWP  (2a7)
+    0     CRY0 r00 r00 PASS A+Q              STACK STACK STACK      013 13 (ec)      e7.0     h11.1       k11.0       LOAD.CCR  READ.SWP  (2a8)
+
+422 0     CRY0 r03 r00 PASS D+A              PC    PC    PC    POP  000 00 (ff)      LOAD.FLR h11.0       k11.0       LOAD.RR   BUS.READ  (422) RR <- r03 + bus; flags
+    0     CRY  r00 r02 PASS A+B              PC    PC    PC         466 66 (99) JSR? e7.0     h11.0       LOAD.WAR.LO LOAD.RR   READ.SWP  (423) WAR (lo) <- RR; RR <- r00 + r02 + c
+    0     CRY0 r05 r08 Q    A.AND.B          PC    PC    PC         000 00 (ff)      e7.0     LOAD.WAR.HI k11.0       LOAD.RIR  READ.SWP  (424) WAR (hi) <- RR; Q <- r05 & r08; RIR <- Q
+    1     CRY0 r00 r09 RAM  Q                DATA  DATA  DATA       2b4 b4 (4b)      e7.0     LOAD.WAR.HI LOAD.WAR.LO LOAD.MAR  READ.SWP  (425) r09 <- Q; swap ARs
+    1 RLO CRY0 r00 r02 RAM  D                PC    PC    PC         000 00 (ff)      e7.0     h11.0       LOAD.DBR    LOAD.RR   READ.REG  (2b4) 
+    0     CRY0 r00 r00 Q    D                PC    PC    PC         000 00 (ff)      e7.0     WRITE.START k11.0       e6.0      READ.REG  (2b5)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         66c 6c (93) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (2b6)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         785 85 (7a) JSR? LATCH    INC.MAR     k11.0       e6.0      READ.SWP  (2b7)
+    0     CRY0 r00 r00 PASS Q                DATA  DATA  DATA       2a5 a5 (5a)      LOAD.FLR h11.0       LOAD.DBR    LOAD.RR   READ.SWP  (2b8)
+    0     CRY0 r02 r00 PASS A                PC    PC    PC         000 00 (ff)      LOAD.FLR WRITE.START k11.0       e6.0      READ.SWP  (2a5)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         66c 6c (93) JSR? e7.0     h11.0       k11.0       e6.0      READ.SWP  (2a6)
+    0     CRY0 r00 r00 PASS A+Q              PC    PC    PC         000 00 (ff)      LATCH    h11.0       k11.0       LOAD.MAR  READ.SWP  (2a7)
+    0     CRY0 r00 r00 PASS A+Q              STACK STACK STACK      013 13 (ec)      e7.0     READ.START  k11.0       LOAD.CCR  READ.SWP  (2a8)
+
+2f9 0     CRY0 r04 r02 RAMA D                DATA  DATA  DATA  POP  76f 6f (90)      e7.0     h11.0       k11.0       LOAD.RIR  READ.REG  (2f9)
+    0     CRY0 r01 r00 PASS A                DATA  DATA  DATA       251 51 (ae)      LOAD.FLR READ.START  k11.0       LOAD.RR   READ.SWP  (76f)
+    1 RLO CRY0 r02 r00 PASS A                DATA  DATA  DATA       30e 0e (f1)      LOAD.FLR h11.0       REG.WRITE   LOAD.RR   READ.SWP  (251)
+    1     CRY0 r00 r00 PASS A+Q              STACK STACK STACK      013 13 (ec)      e7.0     READ.START  REG.WRITE   LOAD.CCR  READ.SWP  (30e)
 
 
 d7 (store A into any register)
@@ -1662,7 +2025,7 @@ d7 (store A into any register)
     0     CRY0 r01 r00 PASS A                DATA  DATA  DATA       377 77 (88)      e7.0     h11.1       k11.0       LOAD.RR   READ.SWP  (5cd) 
     0     CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       101 01 (fe)      e7.0     h11.0       REG.WRITE   e6.0      READ.SWP  (377) a1
 18b 0     CRY0 r06 r00 PASS NOT.D.AND.A      PC    PC    PC         040 40 (bf)      LOAD.FLR h11.0       k11.0       e6.0      CONST     (18b)
-    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (18c)
+    0     CRY0 r00 r00 PASS A+Q         CASE PC    PC    DATA       0cd cd (32)      e7.0     h11.0       k11.0       e6.0      READ.SWP  (18c) (loop ->18f)
     0     CRY1 r09 r00 PASS A+0              DATA  DATA  DATA       105 05 (fa)      e7.3     h11.0       k11.0       LOAD.RR   READ.SWP  (18d)
 
 E6
