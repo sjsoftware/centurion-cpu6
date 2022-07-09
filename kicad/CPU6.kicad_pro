@@ -239,7 +239,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "CPU.kicad_pro",
+    "filename": "CPU6Multi.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -279,7 +279,7 @@
     "page_layout_descr_file": ""
   },
   "schematic": {
-    "annotate_start_num": 0,
+    "annotate_start_num": 555,
     "drawing": {
       "default_line_thickness": 6.0,
       "default_text_size": 50.0,
@@ -318,7 +318,7 @@
   },
   "sheets": [
     [
-      "9538e4ed-27e6-4c37-b989-9859dc0d49e8",
+      "ea4618e0-f6d9-4c93-a6cf-4541f3c0da7d",
       ""
     ]
   ],
