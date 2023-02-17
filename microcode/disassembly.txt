@@ -432,7 +432,7 @@
     1     CRY0 r13 r00 PASS A                DATA  DATA  DATA       3ef ef (10)      e7.0     h11.1       REG.WRITE   LOAD.RR   READ.SWP  (015)
     1 RLO CRY0 r00 r00 PASS A+Q              DATA  DATA  DATA       101 01 (fe)      e7.0     h11.0       REG.WRITE   e6.0      READ.SWP  (3ef)
 
-024 1     CRY0 r00 r00 PASS A+Q              PC    PC    PC         482 82 (7d) JSR? e7.0     h11.0       k11.1       e6.0      READ.SWP  (024) ; load MR10 from register
+024 1     CRY0 r00 r00 PASS A+Q              PC    PC    PC         482 82 (7d) JSR? e7.0     h11.0       k11.1       e6.0      READ.SWP  (024) ; load MR10 from register; DMA Reset
     1 RLO CRY0 r00 r10 RAM  D                DATA  DATA  DATA       289 89 (76)      e7.0     h11.1       k11.0       e6.0      READ.REG  (025)
     0     CRY0 r00 r11 RAM  D                DATA  DATA  DATA       101 01 (fe)      e7.0     h11.0       k11.0       e6.0      READ.REG  (289)
 
