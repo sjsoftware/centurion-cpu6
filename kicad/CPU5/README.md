@@ -25,6 +25,8 @@ I've included board layouts. If you're going to use them note the following:
 There are at least the following differences:
 * Pad 1 on the IC footprints is rectangular on this schematic
 * The pads on the solder side, and the vias are slightly smaller than the original
+* The position of components, traces and vias are not in exactly the right place
+* The power and ground traces are not exactly the right size
 * There are some layout differences due to not having the original board to measure from
 
 ## Future
