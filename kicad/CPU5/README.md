@@ -16,7 +16,8 @@ I've included board layouts. If you're going to use them note the following:
     * Start with the interboard connections
     * Make sure power and ground are where you expect
     * Put in the passives
-    * I haven't designed the breakout boards for the page table/registers yet - you're on your own
+    * I haven't designed the breakout boards for the page table, you're on your own
+	    * These are very simple jumpers which can be made with pin headers and wire bridges
     * The A revision expects that you'll bodge things to make an "authentic" CPU5
     * That's about as far as I've got
 
